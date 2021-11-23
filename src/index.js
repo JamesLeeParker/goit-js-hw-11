@@ -11,13 +11,14 @@ const refs = {
 const BASE_URL = 'https://pixabay.com/api/';
 const URL_KEY = '24469926-df466a8874aa59a8d5a89b872';
 let page = 1;
+let searchingWord = '';
+let countItems = 0;
 
 const fetchImgs = (search = 'cat', page) => {
   return fetch(
-    `${BASE_URL}?key=${URL_KEY}&q=${search}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`,
+    `${BASE_URL}?key=${URL_KEY}&q=${search}&image_type=photo&orientation=horizontal&safesearch=true&per_page=200&page=${page}`,
   ).then(resp => resp.json());
 };
-// fetchImgs().then(r => console.log(r));
 
 const createMarkup = ({ previewURL, likes, views, comments, downloads, tags }) => {
   return `<li>
@@ -40,22 +41,42 @@ const createMarkup = ({ previewURL, likes, views, comments, downloads, tags }) =
   </li>`;
 };
 
-const renderImgs = imgs => {
-  console.log('✈️ ~ imgs', imgs);
+function renderSetchQuery(imgs) {
+  countItems = imgs.hits.length;
 
+  refs.ul.innerHTML = imgs.hits.map(img => createMarkup(img)).join('');
+}
+
+function renderImgs(imgs) {
+  if ((countItems = imgs.totalHits)) refs.loadMoreBtn.classList.add('is-hidden');
   const markup = imgs.hits.map(img => createMarkup(img)).join('');
+  countItems += imgs.hits.length;
 
-  refs.ul.innerHTML = markup;
-};
+  refs.ul.insertAdjacentHTML('beforeend', markup);
+}
 
 const onSearchPhoto = e => {
   e.preventDefault();
-  let page = 1;
-  const searchingWord = refs.input.value;
 
+  searchingWord = refs.input.value;
+  resetPage();
   fetchImgs(searchingWord, page).then(imgs => {
-    renderImgs(imgs);
+    renderSetchQuery(imgs);
+
+    refs.loadMoreBtn.classList.remove('is-hidden');
   });
 };
 
+const resetPage = () => (page = 1);
+
+const incrementPage = () => (page += 1);
+
 refs.form.addEventListener('submit', onSearchPhoto);
+
+const onLoadMore = e => {
+  incrementPage();
+
+  fetchImgs(searchingWord, page).then(imgs => renderImgs(imgs));
+};
+
+refs.loadMoreBtn.addEventListener('click', onLoadMore);
