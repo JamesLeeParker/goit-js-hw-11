@@ -1,10 +1,13 @@
 import './css/styles.css';
+import Notiflix from 'notiflix';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const refs = {
   form: document.querySelector('.search-form'),
   input: document.querySelector('input'),
   button: document.querySelector('button'),
-  ul: document.querySelector('.photos__list'),
+  ul: document.querySelector('.gallery'),
   loadMoreBtn: document.querySelector('.btn'),
 };
 
@@ -20,9 +23,9 @@ const fetchImgs = (search = 'cat', page) => {
   ).then(resp => resp.json());
 };
 
-const createMarkup = ({ previewURL, likes, views, comments, downloads, tags }) => {
+const createMarkup = ({ previewURL, likes, views, comments, downloads, tags, webformatURL }) => {
   return `<li>
-  <img src="${previewURL}" alt="${tags}" >
+  <a href="${webformatURL}"><img src="${previewURL}" alt="${tags}" ></a>
   <div class="info">
     <p class="info-item">
       <b>Likes</b>${likes}
@@ -41,14 +44,18 @@ const createMarkup = ({ previewURL, likes, views, comments, downloads, tags }) =
   </li>`;
 };
 
-function renderSetchQuery(imgs) {
+function renderSerchQuery(imgs) {
   countItems = imgs.hits.length;
-
+  Notiflix.Notify.success(`Hooray! We found ${imgs.totalHits} images.`);
   refs.ul.innerHTML = imgs.hits.map(img => createMarkup(img)).join('');
 }
 
 function renderImgs(imgs) {
-  if ((countItems = imgs.totalHits)) refs.loadMoreBtn.classList.add('is-hidden');
+  if (countItems === imgs.totalHits) {
+    refs.loadMoreBtn.classList.add('is-hidden');
+    Notiflix.Notify.info("We're sorry, but you've reached the end of search results.");
+  }
+
   const markup = imgs.hits.map(img => createMarkup(img)).join('');
   countItems += imgs.hits.length;
 
@@ -61,7 +68,7 @@ const onSearchPhoto = e => {
   searchingWord = refs.input.value;
   resetPage();
   fetchImgs(searchingWord, page).then(imgs => {
-    renderSetchQuery(imgs);
+    renderSerchQuery(imgs);
 
     refs.loadMoreBtn.classList.remove('is-hidden');
   });
@@ -80,3 +87,6 @@ const onLoadMore = e => {
 };
 
 refs.loadMoreBtn.addEventListener('click', onLoadMore);
+
+refs.ul.addEventListener('click', lightbox);
+let lightbox = new SimpleLightbox('.gallery a');
