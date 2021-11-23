@@ -8,11 +8,53 @@
   <title>Homework 10</title>
 </head>
 
+<style>
+  .photos__list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  img {
+    display: block;
+    width: 250px;
+    height: 172px;
+
+  }
+
+  li {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid olivedrab;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+  }
+
+  .info-item {
+    margin-left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 11px;
+  }
+
+  button.is-hidden {
+    display: none;
+  }
+</style>
+
 <body>
   <form class="search-form" id="search-form">
     <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
     <button type="submit">Search</button>
   </form>
+
+  <ul class="photos__list"></ul>
+  <button class="btn">LOAD MORE</button>
 
   <script src="index.js"></script>
 </body>
