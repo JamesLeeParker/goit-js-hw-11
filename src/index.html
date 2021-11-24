@@ -8,58 +8,18 @@
   <title>Homework 10</title>
 </head>
 
-<style>
-  .gallery {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-  }
 
-  img {
-    display: block;
-    width: 250px;
-    height: 172px;
-
-  }
-
-  li {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    border: 1px solid olivedrab;
-  }
-
-  .info {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-  }
-
-  .info-item {
-    margin-left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 11px;
-  }
-
-  button.is-hidden {
-    display: none;
-  }
-
-  .btn {
-    display: block;
-    margin: 0 auto;
-  }
-</style>
 
 <body>
-  <form class="search-form" id="search-form">
-    <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
-    <button type="submit">Search</button>
-  </form>
+  <div class="wrapper">
+    <form class="search-form" id="search-form">
+      <input type="text" name="searchQuery" autocomplete="off" placeholder="Search images..." />
+      <button class="submit__btn" type="submit">Search</button>
+    </form>
+  </div>
 
   <ul class="gallery"></ul>
-  <button class="btn is-hidden">LOAD MORE</button>
+  <button class="btn is-hidden submit__btn">LOAD MORE</button>
 
   <script src="./js/index.js"></script>
 </body>

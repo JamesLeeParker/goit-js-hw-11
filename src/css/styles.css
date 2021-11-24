@@ -3,8 +3,9 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-    Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fafafa;
@@ -12,9 +13,91 @@ body {
   line-height: 1.5;
 }
 
-#search-box {
-  font: inherit;
-  padding: 8px;
-  max-width: 320px;
-  margin-bottom: 16px;
+.search-form {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+input {
+  width: 300px;
+  border-radius: 7px;
+  border: 1px solid rgba(70, 15, 121, 0.781);
+}
+.submit__btn {
+  margin-left: 5px;
+  background-color: rgba(171, 114, 224, 0.781);
+  border-radius: 5px;
+  border: 1px solid rgba(70, 15, 121, 0.781);
+  min-width: 80px;
+  color: white;
+  cursor: pointer;
+  transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1),
+    background-color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.submit__btn:hover {
+  background-color: rgba(110, 69, 148, 0.781);
+  box-shadow: 0px 2px 1px 0px #00000033, 0px 1px 1px 0px #00000024, 0px 1px 3px 0px #0000001f;
+}
+
+.wrapper {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  background-color: rgba(139, 186, 248, 0.699);
+}
+
+.gallery {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+a {
+  color: #222222;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  width: 250px;
+  height: 172px;
+}
+
+li {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #afb1b8;
+  border-radius: 7px;
+  overflow: hidden;
+
+  transition: box-shadow 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+li:hover {
+  box-shadow: 0px 2px 1px 0px #00000033, 0px 1px 1px 0px #00000024, 0px 1px 3px 0px #0000001f;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.info-item {
+  margin-left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 11px;
+}
+
+button.is-hidden {
+  display: none;
+}
+
+.btn {
+  margin-bottom: 30px;
+  display: block;
+  margin: 0 auto;
 }
