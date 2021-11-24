@@ -1,5 +1,5 @@
 export default function createMarkup({
-  previewURL,
+  largeImageURL,
   likes,
   views,
   comments,
@@ -8,7 +8,7 @@ export default function createMarkup({
   webformatURL,
 }) {
   return `<li>
-  <a href="${webformatURL}"><img src="${previewURL}" alt="${tags}" >
+  <a href="${largeImageURL}"><img src="${webformatURL}" alt="${tags}" >
   <div class="info">
     <p class="info-item">
       <b>Likes</b>${likes}
